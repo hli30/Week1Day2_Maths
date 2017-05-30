@@ -14,11 +14,11 @@
 {
     self = [super init];
     if (self) {
-        int num1 = arc4random_uniform(90) + 10;
-        int num2 = arc4random_uniform(90) + 10;
-        int add = num1 + num2;
+        NSInteger num1 = arc4random_uniform(90) + 10;
+        NSInteger num2 = arc4random_uniform(90) + 10;
+        NSInteger add = num1 + num2;
         
-        _question = [NSString stringWithFormat:@"%i + %i = ?", num1, num2];
+        _question = [NSString stringWithFormat:@"%li + %li = ?", num1, num2];
         _answer = add;
     }
     return self;

@@ -21,7 +21,7 @@ int main(int argc, const char * argv[]) {
             
             fgets(answer, 255, stdin);
             
-            int userAnswer = atoi(answer);
+            NSInteger userAnswer = atoi(answer);
             
             if(newQuestion.answer == userAnswer){
                 NSLog(@"Right!");
