@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "AdditionQuestion.h"
+#import "Question.h"
 #import "ScoreKeeper.h"
 #import "InputHandler.h"
+#import "QuestionManager.h"
+#import "QuestionFactory.h"
 
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
@@ -18,11 +20,20 @@ int main(int argc, const char * argv[]) {
         BOOL gameOn = YES;
         ScoreKeeper *keeper = [[ScoreKeeper alloc]init];
         InputHandler *userInput = [[InputHandler alloc]init];
+        QuestionManager *questionManager = [[QuestionManager alloc]init];
+        QuestionFactory *questionFactory = [[QuestionFactory alloc]init];
 
         while(gameOn){
-            AdditionQuestion *newQuestion = [[AdditionQuestion alloc]init];
+            Question *newQuestion = [questionFactory generateRandomQuestion];
+
+            if (newQuestion != nil) {
+               [questionManager.questions addObject: newQuestion];
+            }
             
+            if (newQuestion.question != nil){
             NSLog(@"%@, type 'quit' to exit.", newQuestion.question);
+            }
+            
             NSString *input = [userInput readInput];
             
             if ([input isEqualToString:@"quit"]){
@@ -32,11 +43,13 @@ int main(int argc, const char * argv[]) {
                 if(newQuestion.answer == userAnswer){
                     NSLog(@"Right!");
                     keeper.right++;
-                    NSLog(@"%@", [keeper keepScore]);
+                    NSLog(@"%@\n", [keeper keepScore]);
+                    NSLog(@"%@\n", [questionManager timeOutput]);
                 }else{
                     NSLog(@"Wrong!");
                     keeper.wrong++;
-                    NSLog(@"%@", [keeper keepScore]);
+                    NSLog(@"%@\n", [keeper keepScore]);
+                    NSLog(@"%@\n", [questionManager timeOutput]);
                 }
             }
         }
